@@ -7,7 +7,7 @@ import java.net.URI;
 import java.util.List;
 
 @RestController
-@RequestMapping
+@RequestMapping("/companies")
 public class CompanyController {
     private final CompanyService companyService;
 
@@ -15,17 +15,17 @@ public class CompanyController {
         this.companyService = companyService;
     }
 
-    @GetMapping("/companies")
+    @GetMapping()
     public ResponseEntity<List<Company>> getAllCompanies() {
         return ResponseEntity.ok(companyService.getAllCompanies());
     }
 
-    @GetMapping("/companies/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<Company> getCompanyById(@PathVariable Long id) {
         return ResponseEntity.ok(companyService.getCompanyById(id));
     }
 
-    @PostMapping("/companies")
+    @PostMapping("")
     public ResponseEntity<Company> createCompany(@RequestBody Company company) {
         Company createdCompany = companyService.createCompany(company);
         // Optional: Best practice to return Location header
@@ -33,13 +33,13 @@ public class CompanyController {
         return ResponseEntity.created(location).body(createdCompany);
     }
 
-    @PutMapping("/companies/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<String> updateCompany(@PathVariable Long id, @RequestBody Company company) {
         companyService.updateCompany(id, company);
         return ResponseEntity.ok("Company updated successfully!");
     }
 
-    @DeleteMapping("/companies/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteCompany(@PathVariable Long id) {
         companyService.deleteCompany(id);
         return ResponseEntity.noContent().build(); // HTTP 204 No Content
