@@ -4,6 +4,7 @@ package com.kira.companyms.company.impl;
 import com.kira.companyms.company.Company;
 import com.kira.companyms.company.CompanyRepo;
 import com.kira.companyms.company.CompanyService;
+import com.kira.companyms.dto.ReviewMessage;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -54,5 +55,9 @@ public class CompanyServiceImpl implements CompanyService {
         }
         companyRepo.deleteById(id);
 
+    }
+    @Override
+    public void updateCompanyRating(ReviewMessage reviewMessage) {
+    
     }
 }
