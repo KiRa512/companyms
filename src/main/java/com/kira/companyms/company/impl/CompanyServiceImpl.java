@@ -4,6 +4,7 @@ package com.kira.companyms.company.impl;
 import com.kira.companyms.company.Company;
 import com.kira.companyms.company.CompanyRepo;
 import com.kira.companyms.company.CompanyService;
+import com.kira.companyms.company.clients.ReviewClient;
 import com.kira.companyms.dto.ReviewMessage;
 import org.springframework.stereotype.Service;
 
@@ -13,9 +14,11 @@ import java.util.Optional;
 @Service
 public class CompanyServiceImpl implements CompanyService {
     private CompanyRepo companyRepo;
+    private ReviewClient reviewClient;
 
-    public CompanyServiceImpl(CompanyRepo companyRepo) {
+    public CompanyServiceImpl(CompanyRepo companyRepo , ReviewClient reviewClient) {
         this.companyRepo = companyRepo;
+        this.reviewClient = reviewClient;
     }
 
     @Override
@@ -58,6 +61,12 @@ public class CompanyServiceImpl implements CompanyService {
     }
     @Override
     public void updateCompanyRating(ReviewMessage reviewMessage) {
-    
+        System.out.println("Received review message: " + reviewMessage.getContent());
+        Company company = companyRepo.findById(reviewMessage.getCompanyId())
+                .orElseThrow(()->new RuntimeException("Company not found with id: " + reviewMessage.getCompanyId()));
+
+        double averageRating = reviewClient.getAverageRating(reviewMessage.getCompanyId());
+        company.setRating(averageRating);
+        companyRepo.save(company);
     }
 }

@@ -44,4 +44,6 @@ public class CompanyController {
         companyService.deleteCompany(id);
         return ResponseEntity.noContent().build(); // HTTP 204 No Content
     }
+
+
 }
