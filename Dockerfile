@@ -1,5 +1,5 @@
 # Start from an official Java runtime
-FROM openjdk:17-jdk-slim
+FROM eclipse-temurin:17-jdk-jammy
 
 # Set the working directory inside the container
 WORKDIR /app
