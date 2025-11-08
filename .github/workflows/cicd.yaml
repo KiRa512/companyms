@@ -20,7 +20,7 @@ jobs:
 
       - name: build the app
         run: |
-          ./mvnw clean package -DskipTests
+          mvnw clean package -DskipTests
 
 
       - name: Login to Docker Hub
